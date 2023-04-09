@@ -121,69 +121,6 @@ void make_a_move(Table* board, int old_i, int old_j, int new_i, int new_j,
       letter + std::to_string(new_i) + std::to_string(new_j);
 }
 
-vector<vector<int>> find_available_moves(Table board, bool mandatory_jumping) {
-  vector<vector<int>> available_moves;
-  vector<vector<int>> available_jumps;
-  for (int m = 0; m < 8; m++) {
-    for (int n = 0; n < 8; n++) {
-      if (board[m][n][0] == 'c') {
-        if (check_player_moves(board, m, n, m - 1, n - 1)) {
-          available_moves.push_back({m, n, m - 1, n - 1});
-        }
-        if (check_player_moves(board, m, n, m - 1, n + 1)) {
-          available_moves.push_back({m, n, m - 1, n + 1});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2)) {
-          available_jumps.push_back({m, n, m - 2, n - 2});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
-          available_jumps.push_back({m, n, m - 2, n + 2});
-        }
-      } else if (board[m][n][0] == 'C') {
-        if (check_player_moves(board, m, n, m - 1, n - 1)) {
-          available_moves.push_back({m, n, m - 1, n - 1});
-        }
-        if (check_player_moves(board, m, n, m - 1, n + 1)) {
-          available_moves.push_back({m, n, m - 1, n + 1});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2)) {
-          available_jumps.push_back({m, n, m - 2, n - 2});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
-          available_jumps.push_back({m, n, m - 2, n + 2});
-        }
-        if (check_player_moves(board, m, n, m + 1, n - 1)) {
-          available_moves.push_back({m, n, m + 1, n - 1});
-        }
-        if (check_player_jumps(board, m, n, m + 1, n - 1, m + 2, n - 2)) {
-          available_jumps.push_back({m, n, m + 2, n - 2});
-        }
-        if (check_player_moves(board, m, n, m + 1, n + 1)) {
-          available_moves.push_back({m, n, m + 1, n + 1});
-        }
-        if (check_player_jumps(board, m, n, m + 1, n + 1, m + 2, n + 2)) {
-          available_jumps.push_back({m, n, m + 2, n + 2});
-        }
-      }
-    }
-  }
-  if (!mandatory_jumping) {
-    // reserve() is optional - just to improve performance
-    available_jumps.reserve(
-        available_jumps.size() +
-        distance(available_moves.begin(), available_moves.end()));
-    available_jumps.insert(available_jumps.end(), available_moves.begin(),
-                           available_moves.end());
-    return available_jumps;
-  } else {
-    if (available_jumps.size() == 0) {
-      return available_moves;
-    } else {
-      return available_jumps;
-    }
-  }
-}
-
 bool check_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
                  int new_i, int new_j) {
   if (new_i > 7 || new_i < 0) {
@@ -228,6 +165,69 @@ bool check_moves(Table board, int old_i, int old_j, int new_i, int new_j) {
   }
   if (board[new_i][new_j] == "---") {
     return true;
+  }
+}
+
+vector<vector<int>> find_available_moves(Table board, bool mandatory_jumping) {
+  vector<vector<int>> available_moves;
+  vector<vector<int>> available_jumps;
+  for (int m = 0; m < 8; m++) {
+    for (int n = 0; n < 8; n++) {
+      if (board[m][n][0] == 'c') {
+        if (check_moves(board, m, n, m + 1, n + 1)) {
+          available_moves.push_back({m, n, m + 1, n + 1});
+        }
+        if (check_moves(board, m, n, m + 1, n - 1)) {
+          available_moves.push_back({m, n, m + 1, n - 1});
+        }
+        if (check_jumps(board, m, n, m + 1, n - 1, m + 2, n - 2)) {
+          available_jumps.push_back({m, n, m + 2, n - 2});
+        }
+        if (check_jumps(board, m, n, m + 1, n + 1, m + 2, n + 2)) {
+          available_jumps.push_back({m, n, m + 2, n + 2});
+        }
+      } else if (board[m][n][0] == 'C') {
+        if (check_moves(board, m, n, m + 1, n + 1)) {
+          available_moves.push_back({m, n, m + 1, n + 1});
+        }
+        if (check_moves(board, m, n, m + 1, n - 1)) {
+          available_moves.push_back({m, n, m + 1, n - 1});
+        }
+        if (check_moves(board, m, n, m - 1, n - 1)) {
+          available_moves.push_back({m, n, m - 1, n - 1});
+        }
+        if (check_moves(board, m, n, m - 1, n + 1)) {
+          available_moves.push_back({m, n, m - 1, n + 1});
+        }
+        if (check_jumps(board, m, n, m + 1, n - 1, m + 2, n - 2)) {
+          available_jumps.push_back({m, n, m + 2, n - 2});
+        }
+        if (check_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2)) {
+          available_jumps.push_back({m, n, m - 2, n - 2});
+        }
+        if (check_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
+          available_jumps.push_back({m, n, m - 2, n + 2});
+        }
+        if (check_jumps(board, m, n, m + 1, n + 1, m + 2, n + 2)) {
+          available_jumps.push_back({m, n, m + 2, n + 2});
+        }
+      }
+    }
+  }
+  if (!mandatory_jumping) {
+    // reserve() is optional - just to improve performance
+    available_jumps.reserve(
+        available_jumps.size() +
+        distance(available_moves.begin(), available_moves.end()));
+    available_jumps.insert(available_jumps.end(), available_moves.begin(),
+                           available_moves.end());
+    return available_jumps;
+  } else {
+    if (available_jumps.size() == 0) {
+      return available_moves;
+    } else {
+      return available_jumps;
+    }
   }
 }
 
