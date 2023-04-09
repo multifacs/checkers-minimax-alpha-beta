@@ -109,7 +109,7 @@ void make_a_move(Table* board, int old_i, int old_j, int new_i, int new_j,
     (*board).at(old_i - 1).at(old_j - 1) = "---";
 
   } else if (i_difference == 2 && j_difference == -2) {
-    (*board).at(old_i + 1).at(old_j + 1) = "---";
+    (*board).at(old_i - 1).at(old_j + 1) = "---";
 
   } else if (i_difference == -2 && j_difference == -2) {
     (*board).at(old_i + 1).at(old_j + 1) = "---";
