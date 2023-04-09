@@ -53,16 +53,16 @@ bool check_player_moves(Table board, int old_i, int old_j, int new_i,
   if (new_j > 7 || new_j < 0) {
     return false;
   }
-  if (board[old_i][old_j] == "---") {
+  if (board.at(old_i).at(old_j) == "---") {
     return false;
   }
-  if (board[new_i][new_j] != "---") {
+  if (board.at(new_i).at(new_j) != "---") {
     return false;
   }
-  if (board[old_i][old_j][0] == 'c' || board[old_i][old_j][0] == 'C') {
+  if (board.at(old_i).at(old_j).at(0) == 'c' || board.at(old_i).at(old_j).at(0) == 'C') {
     return false;
   }
-  if (board[new_i][new_j] == "---") {
+  if (board.at(new_i).at(new_j) == "---") {
     return true;
   }
 }
@@ -75,19 +75,19 @@ bool check_player_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
   if (new_j > 7 || new_j < 0) {
     return false;
   }
-  if (board[via_i][via_j] == "---") {
+  if (board.at(via_i).at(via_j) == "---") {
     return false;
   }
-  if (board[via_i][via_j][0] == 'B' || board[via_i][via_j][0] == 'b') {
+  if (board.at(via_i).at(via_j).at(0) == 'B' || board.at(via_i).at(via_j).at(0) == 'b') {
     return false;
   }
-  if (board[new_i][new_j] != "---") {
+  if (board.at(new_i).at(new_j) != "---") {
     return false;
   }
-  if (board[old_i][old_j] == "---") {
+  if (board.at(old_i).at(old_j) == "---") {
     return false;
   }
-  if (board[old_i][old_j][0] == 'c' || board[old_i][old_j][0] == 'C') {
+  if (board.at(old_i).at(old_j).at(0) == 'c' || board.at(old_i).at(old_j).at(0) == 'C') {
     return false;
   }
   return true;
@@ -95,29 +95,29 @@ bool check_player_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
 
 void make_a_move(Table* board, int old_i, int old_j, int new_i, int new_j,
                  char big_letter, int queen_row) {
-  char letter = (*board)[old_i][old_j][0];
+  char letter = (*board).at(old_i).at(old_j).at(0);
   int i_difference = old_i - new_i;
   int j_difference = old_j - new_j;
 
   if (i_difference == -2 && j_difference == 2) {
-    (*board)[old_i + 1][old_j - 1] = "---";
+    (*board).at(old_i + 1).at(old_j - 1) = "---";
 
   } else if (i_difference == 2 && j_difference == 2) {
-    (*board)[old_i - 1][old_j - 1] = "---";
+    (*board).at(old_i - 1).at(old_j - 1) = "---";
 
   } else if (i_difference == 2 && j_difference == -2) {
-    (*board)[old_i - 1][old_j + 1] = "---";
+    (*board).at(old_i + 1).at(old_j + 1) = "---";
 
   } else if (i_difference == -2 && j_difference == -2) {
-    (*board)[old_i + 1][old_j + 1] = "---";
+    (*board).at(old_i + 1).at(old_j + 1) = "---";
   }
 
   if (new_i == queen_row) {
     letter = big_letter;
   }
 
-  (*board)[old_i][old_j] = "---";
-  (*board)[new_i][new_j] =
+  (*board).at(old_i).at(old_j) = "---";
+  (*board).at(new_i).at(new_j) =
       letter + std::to_string(new_i) + std::to_string(new_j);
 }
 
@@ -129,19 +129,19 @@ bool check_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
   if (new_j > 7 || new_j < 0) {
     return false;
   }
-  if (board[via_i][via_j] == "---") {
+  if (board.at(via_i).at(via_j) == "---") {
     return false;
   }
-  if (board[via_i][via_j][0] == 'C' || board[via_i][via_j][0] == 'c') {
+  if (board.at(via_i).at(via_j).at(0) == 'C' || board.at(via_i).at(via_j).at(0) == 'c') {
     return false;
   }
-  if (board[new_i][new_j] != "---") {
+  if (board.at(new_i).at(new_j) != "---") {
     return false;
   }
-  if (board[old_i][old_j] == "---") {
+  if (board.at(old_i).at(old_j) == "---") {
     return false;
   }
-  if (board[old_i][old_j][0] == 'b' || board[old_i][old_j][0] == 'B') {
+  if (board.at(old_i).at(old_j).at(0) == 'b' || board.at(old_i).at(old_j).at(0) == 'B') {
     return false;
   }
   return true;
@@ -154,16 +154,16 @@ bool check_moves(Table board, int old_i, int old_j, int new_i, int new_j) {
   if (new_j > 7 || new_j < 0) {
     return false;
   }
-  if (board[old_i][old_j] == "---") {
+  if (board.at(old_i).at(old_j) == "---") {
     return false;
   }
-  if (board[new_i][new_j] != "---") {
+  if (board.at(new_i).at(new_j) != "---") {
     return false;
   }
-  if (board[old_i][old_j][0] == 'b' || board[old_i][old_j][0] == 'B') {
+  if (board.at(old_i).at(old_j).at(0) == 'b' || board.at(old_i).at(old_j).at(0) == 'B') {
     return false;
   }
-  if (board[new_i][new_j] == "---") {
+  if (board.at(new_i).at(new_j) == "---") {
     return true;
   }
 }
@@ -173,7 +173,7 @@ vector<vector<int>> find_available_moves(Table board, bool mandatory_jumping) {
   vector<vector<int>> available_jumps;
   for (int m = 0; m < 8; m++) {
     for (int n = 0; n < 8; n++) {
-      if (board[m][n][0] == 'c') {
+      if (board.at(m).at(n).at(0) == 'c') {
         if (check_moves(board, m, n, m + 1, n + 1)) {
           available_moves.push_back({m, n, m + 1, n + 1});
         }
@@ -186,7 +186,7 @@ vector<vector<int>> find_available_moves(Table board, bool mandatory_jumping) {
         if (check_jumps(board, m, n, m + 1, n + 1, m + 2, n + 2)) {
           available_jumps.push_back({m, n, m + 2, n + 2});
         }
-      } else if (board[m][n][0] == 'C') {
+      } else if (board.at(m).at(n).at(0) == 'C') {
         if (check_moves(board, m, n, m + 1, n + 1)) {
           available_moves.push_back({m, n, m + 1, n + 1});
         }
@@ -237,13 +237,13 @@ int calculate_heuristics(Table board) {
   int opp = 0;
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
-      if (board[i][j][0] == 'c' || board[i][j][0] == 'C') {
+      if (board.at(i).at(j).at(0) == 'c' || board.at(i).at(j).at(0) == 'C') {
         mine += 1;
 
-        if (board[i][j][0] == 'c') {
+        if (board.at(i).at(j).at(0) == 'c') {
           result += 5;
         }
-        if (board[i][j][0] == 'C') {
+        if (board.at(i).at(j).at(0) == 'C') {
           result += 10;
         }
         if (i == 0 || j == 0 || i == 7 || j == 7) {
@@ -252,35 +252,35 @@ int calculate_heuristics(Table board) {
         if (i + 1 > 7 || j - 1 < 0 || i - 1 < 0 || j + 1 > 7) {
           continue;
         }
-        if ((board[i + 1][j - 1][0] == 'b' || board[i + 1][j - 1][0] == 'B') &&
-            board[i - 1][j + 1] == "---") {
+        if ((board.at(i + 1).at(j - 1).at(0) == 'b' || board.at(i + 1).at(j - 1).at(0) == 'B') &&
+            board.at(i - 1).at(j + 1) == "---") {
           result -= 3;
         }
-        if ((board[i + 1][j + 1][0] == 'b' || board[i + 1][j + 1][0] == 'B') &&
-            board[i - 1][j - 1] == "---") {
+        if ((board.at(i + 1).at(j + 1).at(0) == 'b' || board.at(i + 1).at(j + 1).at(0) == 'B') &&
+            board.at(i - 1).at(j - 1) == "---") {
           result -= 3;
         }
-        if (board[i - 1][j - 1][0] == 'B' && board[i + 1][j + 1] == "---") {
+        if (board.at(i - 1).at(j - 1).at(0) == 'B' && board.at(i + 1).at(j + 1) == "---") {
           result -= 3;
         }
-        if (board[i - 1][j + 1][0] == 'B' && board[i + 1][j - 1] == "---") {
+        if (board.at(i - 1).at(j + 1).at(0) == 'B' && board.at(i + 1).at(j - 1) == "---") {
           result -= 3;
         }
         if (i + 2 > 7 || i - 2 < 0) {
           continue;
         }
-        if ((board[i + 1][j - 1][0] == 'B' || board[i + 1][j - 1][0] == 'b') &&
+        if ((board.at(i + 1).at(j - 1).at(0) == 'B' || board.at(i + 1).at(j - 1).at(0) == 'b') &&
             board[i + 2][j + 2] == "---") {
           result += 6;
         }
         if (i + 2 > 7 || j + 2 > 7) {
           continue;
         }
-        if ((board[i + 1][j + 1][0] == 'B' || board[i + 1][j + 1][0] == 'b') &&
+        if ((board.at(i + 1).at(j + 1).at(0) == 'B' || board.at(i + 1).at(j + 1).at(0) == 'b') &&
             board[i + 2][j + 2] == "---") {
           result += 6;
         }
-      } else if (board[i][j][0] == 'b' || board[i][j][0] == 'B') {
+      } else if (board.at(i).at(j).at(0) == 'b' || board.at(i).at(j).at(0) == 'B') {
         opp += 1;
       }
     }
@@ -294,7 +294,7 @@ static vector<vector<int>> find_player_available_moves(Table board,
   vector<vector<int>> available_jumps;
   for (int m = 0; m < 8; m++) {
     for (int n = 0; n < 8; n++) {
-      if (board[m][n][0] == 'b') {
+      if (board.at(m).at(n).at(0) == 'b') {
         if (check_player_moves(board, m, n, m - 1, n - 1)) {
           available_moves.push_back({m, n, m - 1, n - 1});
         }
@@ -307,7 +307,7 @@ static vector<vector<int>> find_player_available_moves(Table board,
         if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
           available_jumps.push_back({m, n, m - 2, n + 2});
         }
-      } else if (board[m][n][0] == 'B') {
+      } else if (board.at(m).at(n).at(0) == 'B') {
         if (check_player_moves(board, m, n, m - 1, n - 1)) {
           available_moves.push_back({m, n, m - 1, n - 1});
         }
@@ -391,12 +391,12 @@ class Node {
       queen_row = 0;
     }
     for (int i = 0; i < available_moves.size(); i++) {
-      int old_i = available_moves[i][0];
-      int old_j = available_moves[i][1];
-      int new_i = available_moves[i][2];
-      int new_j = available_moves[i][3];
+      int old_i = available_moves.at(i).at(0);
+      int old_j = available_moves.at(i).at(1);
+      int new_i = available_moves.at(i).at(2);
+      int new_j = available_moves.at(i).at(3);
       Table state(current_state);
-      make_a_move(&state, old_i, old_j, new_i, new_j, big_letter[0], queen_row);
+      make_a_move(&state, old_i, old_j, new_i, new_j, big_letter.at(0), queen_row);
       vector<int> new_move = {old_i, old_j, new_i, new_j};
       Node child(state, new_move, this);
       children_states.push_back(child);
@@ -476,7 +476,7 @@ class Checkers {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 8; j++) {
         if ((i + j) % 2 == 1) {
-          matrix[i][j] = ("c" + std::to_string(i) + std::to_string(j));
+          matrix.at(i).at(j) = ("c" + std::to_string(i) + std::to_string(j));
         }
       }
     }
@@ -485,7 +485,7 @@ class Checkers {
     for (int i = 5; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         if ((i + j) % 2 == 1) {
-          matrix[i][j] = ("b" + std::to_string(i) + std::to_string(j));
+          matrix.at(i).at(j) = ("b" + std::to_string(i) + std::to_string(j));
         }
       }
     }
@@ -498,9 +498,9 @@ class Checkers {
       std::cout << i << "  |";
       i += 1;
       for (auto elem : row) {
-        if (elem[0] == 'c' || elem[0] == 'C') {
+        if (elem.at(0) == 'c' || elem.at(0) == 'C') {
           std::cout << ansi_red << elem << ansi_reset << " ";
-        } else if (elem[0] == 'b' || elem[0] == 'B') {
+        } else if (elem.at(0) == 'b' || elem.at(0) == 'B') {
           std::cout << ansi_green << elem << ansi_reset << " ";
         } else {
           std::cout << elem << " ";
@@ -565,10 +565,10 @@ class Checkers {
         continue;
       }
       try {
-        old_i = stoi(old_coord[0]);
-        old_j = stoi(old_coord[1]);
-        new_i = stoi(new_coord[0]);
-        new_j = stoi(new_coord[1]);
+        old_i = stoi(old_coord.at(0));
+        old_j = stoi(old_coord.at(1));
+        new_i = stoi(new_coord.at(0));
+        new_j = stoi(new_coord.at(1));
       } catch (const std::exception& e) {
         cout << ansi_red << "Illegal input" << ansi_reset << endl;
         continue;
@@ -583,9 +583,9 @@ class Checkers {
       make_a_move(&matrix, old_i, old_j, new_i, new_j, 'B', 0);
       for (int m = 0; m < 8; m++) {
         for (int n = 0; n < 8; n++) {
-          if (matrix[m][n][0] == 'c' || matrix[m][n][0] == 'C') {
+          if (matrix.at(m).at(n).at(0) == 'c' || matrix.at(m).at(n).at(0) == 'C') {
             computer_pieces++;
-          } else if (matrix[m][n][0] == 'b' || matrix[m][n][0] == 'B') {
+          } else if (matrix.at(m).at(n).at(0) == 'b' || matrix.at(m).at(n).at(0) == 'B') {
             player_pieces++;
           }
         }
@@ -616,7 +616,7 @@ class Checkers {
     }
     std::map<double, Node> dict;
     for (int i = 0; i < first_computer_moves.size(); i++) {
-      Node child = first_computer_moves[i];
+      Node child = first_computer_moves.at(i);
       double value = minimax(child.get_board(), 4, -INFINITY, INFINITY, false,
                              mandatory_jumping);
       dict[value] = child;
@@ -631,8 +631,8 @@ class Checkers {
     matrix = new_board;
     double t2 = time(NULL);
     double diff = difftime(t2, t1);
-    cout << "Computer has moved (" << move[0] << "," << move[1] << ") to ("
-         << move[2] << "," << move[3] << ").\n";
+    cout << "Computer has moved (" << move.at(0) << "," << move.at(1) << ") to ("
+         << move.at(2) << "," << move.at(3) << ").\n";
     cout << "It took him " << diff << " seconds.\n";
   }
 
@@ -649,10 +649,10 @@ class Checkers {
       cout << "\nFirst, we need to know, is jumping mandatory?[Y/n]: ";
       cin >> answer;
       if (answer == "Y" || answer == "y") {
-        this->mandatory_jumping = true;
+        mandatory_jumping = true;
         break;
       } else if (answer == "N" || answer == "n") {
-        this->mandatory_jumping = false;
+        mandatory_jumping = false;
         break;
       } else if (answer == "") {
         cout << ansi_cyan << "Game ended!" << ansi_reset << endl;
@@ -667,26 +667,26 @@ class Checkers {
       }
     }
     while (true) {
-      this->print_matrix();
-      if (this->player_turn == true) {
+      print_matrix();
+      if (player_turn == true) {
         cout << ansi_cyan << "\nPlayer's turn." << ansi_reset << endl;
-        this->get_player_input();
+        get_player_input();
       } else {
         cout << ansi_cyan << "Computer's turn." << ansi_reset << endl;
         cout << "Thinking..." << endl;
-        this->evaluate_states();
+        evaluate_states();
       }
-      if (this->player_pieces == 0) {
-        this->print_matrix();
+      if (player_pieces == 0) {
+        print_matrix();
         cout << ansi_red << "You have no pieces left.\nYOU LOSE!" << ansi_reset
              << endl;
         return;
-      } else if (this->computer_pieces == 0) {
-        this->print_matrix();
+      } else if (computer_pieces == 0) {
+        print_matrix();
         cout << ansi_green << "Computer has no pieces left.\nYOU WIN!"
              << ansi_reset << endl;
         return;
-      } else if (this->computer_pieces - this->player_pieces == 7) {
+      } else if (computer_pieces - player_pieces == 7) {
         string wish;
         cout << "You have 7 pieces fewer than your opponent.Do you want to "
                 "surrender?";
@@ -696,7 +696,7 @@ class Checkers {
           return;
         }
       }
-      this->player_turn = !this->player_turn;
+      player_turn = !player_turn;
     }
   }
 };
