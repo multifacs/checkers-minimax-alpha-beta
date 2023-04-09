@@ -126,7 +126,7 @@ vector<vector<int>> find_available_moves(Table board, bool mandatory_jumping) {
   vector<vector<int>> available_jumps;
   for (int m = 0; m < 8; m++) {
     for (int n = 0; n < 8; n++) {
-      if (board[m][n][0] == 'b') {
+      if (board[m][n][0] == 'c') {
         if (check_player_moves(board, m, n, m - 1, n - 1)) {
           available_moves.push_back({m, n, m - 1, n - 1});
         }
@@ -139,7 +139,7 @@ vector<vector<int>> find_available_moves(Table board, bool mandatory_jumping) {
         if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
           available_jumps.push_back({m, n, m - 2, n + 2});
         }
-      } else if (board[m][n][0] == 'B') {
+      } else if (board[m][n][0] == 'C') {
         if (check_player_moves(board, m, n, m - 1, n - 1)) {
           available_moves.push_back({m, n, m - 1, n - 1});
         }
@@ -622,7 +622,8 @@ class Checkers {
       dict[value] = child;
     }
     if (dict.empty()) {
-      cout << "\033[1;32mComputer has cornered itself.\nYOU WIN!\033[0m\n";
+      cout << ansi_green + "Computer has cornered itself.\nYOU WIN!" +
+                  ansi_reset;
       return;
     }
     Table new_board = dict.rbegin()->second.get_board();
