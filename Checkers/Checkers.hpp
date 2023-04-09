@@ -464,6 +464,7 @@ class Checkers {
   int player_pieces = 12;
   vector<Table> available_moves;
   bool mandatory_jumping = false;
+  int depth = 4;
 
  public:
   Checkers() {
@@ -475,6 +476,8 @@ class Checkers {
     position_computer();
     position_player();
   }
+
+  Checkers(int depth) : Checkers() { this->depth = depth; }
 
   void position_computer() {
     for (int i = 0; i < 3; i++) {
@@ -623,7 +626,7 @@ class Checkers {
     std::map<double, Node> dict;
     for (int i = 0; i < first_computer_moves.size(); i++) {
       Node child = first_computer_moves.at(i);
-      double value = minimax(child.get_board(), 4, -INT_MAX, INT_MAX, false,
+      double value = minimax(child.get_board(), depth, -INT_MAX, INT_MAX, false,
                              mandatory_jumping);
       dict.insert(std::pair<double, Node>(value, child));
     }
@@ -650,6 +653,8 @@ class Checkers {
     cout << "3.You can surrender at any time by pressing 's'." << endl;
     cout << "Now that you've familiarized yourself with the rules, enjoy!"
          << endl;
+    cout << endl;
+    cout << "Selected DEPTH (AI difficulty): " << depth << endl;
     while (true) {
       string answer;
       cout << "\nFirst, we need to know, is jumping mandatory?[Y/n]: ";

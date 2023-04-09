@@ -2,6 +2,7 @@
 
 int main()
 {
-  Checkers checkers;
+  int depth = 4;
+  Checkers checkers(depth);
   checkers.play();
 }
