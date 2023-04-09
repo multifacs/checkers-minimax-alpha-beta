@@ -544,19 +544,19 @@ class Checkers {
       cin >> coord1;
       if (coord1 == "") {
         cout << ansi_cyan << "Game ended!" << ansi_reset << endl;
-        return;
+        exit(0);
       } else if (coord1 == "s") {
         cout << ansi_cyan << "You surrendered.\nCoward." << ansi_reset << endl;
-        return;
+        exit(0);
       }
       cout << "Where to[i,j]:";
       cin >> coord2;
       if (coord2 == "") {
         cout << ansi_cyan << "Game ended!" << ansi_reset << endl;
-        return;
+        exit(0);
       } else if (coord2 == "s") {
         cout << ansi_cyan << "You surrendered.\nCoward." << ansi_reset << endl;
-        return;
+        exit(0);
       }
       vector<string> old_coord = split_string(coord1, ',');
       vector<string> new_coord = split_string(coord2, ',');
@@ -656,12 +656,12 @@ class Checkers {
         break;
       } else if (answer == "") {
         cout << ansi_cyan << "Game ended!" << ansi_reset << endl;
-        return;
+        exit(0);
       } else if (answer == "s") {
         cout << ansi_cyan
              << "You've surrendered before the game even started.\nPathetic."
              << ansi_reset << endl;
-        return;
+        exit(0);
       } else {
         cout << ansi_red << "Illegal input!" << ansi_reset << endl;
       }
@@ -680,12 +680,12 @@ class Checkers {
         this->print_matrix();
         cout << ansi_red << "You have no pieces left.\nYOU LOSE!" << ansi_reset
              << endl;
-        return;
+        exit(0);
       } else if (this->computer_pieces == 0) {
         this->print_matrix();
         cout << ansi_green << "Computer has no pieces left.\nYOU WIN!"
              << ansi_reset << endl;
-        return;
+        exit(0);
       } else if (this->computer_pieces - this->player_pieces == 7) {
         string wish;
         cout << "You have 7 pieces fewer than your opponent.Do you want to "
@@ -693,7 +693,7 @@ class Checkers {
         cin >> wish;
         if (wish == "" || wish == "yes") {
           cout << ansi_cyan << "Coward." << ansi_reset << endl;
-          return;
+          exit(0);
         }
       }
       this->player_turn = !this->player_turn;
