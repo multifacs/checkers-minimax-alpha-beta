@@ -277,7 +277,7 @@ int calculate_heuristics(Table board) {
             board.at(i + 1).at(j - 1) == "---") {
           result -= 3;
         }
-        if (i + 2 > 7 || i - 2 < 0) {
+        if (i + 2 > 7 || j - 2 < 0) {
           continue;
         }
         if ((board.at(i + 1).at(j - 1).at(0) == 'B' ||
@@ -310,43 +310,31 @@ static vector<vector<int>> find_player_available_moves(Table board,
   for (int m = 0; m < 8; m++) {
     for (int n = 0; n < 8; n++) {
       if (board.at(m).at(n).at(0) == 'b') {
-        if (check_player_moves(board, m, n, m - 1, n - 1)) {
+        if (check_player_moves(board, m, n, m - 1, n - 1))
           available_moves.push_back({m, n, m - 1, n - 1});
-        }
-        if (check_player_moves(board, m, n, m - 1, n + 1)) {
+        if (check_player_moves(board, m, n, m - 1, n + 1))
           available_moves.push_back({m, n, m - 1, n + 1});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2)) {
+        if (check_player_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2))
           available_jumps.push_back({m, n, m - 2, n - 2});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
+        if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2))
           available_jumps.push_back({m, n, m - 2, n + 2});
-        }
       } else if (board.at(m).at(n).at(0) == 'B') {
-        if (check_player_moves(board, m, n, m - 1, n - 1)) {
+        if (check_player_moves(board, m, n, m - 1, n - 1))
           available_moves.push_back({m, n, m - 1, n - 1});
-        }
-        if (check_player_moves(board, m, n, m - 1, n + 1)) {
+        if (check_player_moves(board, m, n, m - 1, n + 1))
           available_moves.push_back({m, n, m - 1, n + 1});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2)) {
+        if (check_player_jumps(board, m, n, m - 1, n - 1, m - 2, n - 2))
           available_jumps.push_back({m, n, m - 2, n - 2});
-        }
-        if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2)) {
+        if (check_player_jumps(board, m, n, m - 1, n + 1, m - 2, n + 2))
           available_jumps.push_back({m, n, m - 2, n + 2});
-        }
-        if (check_player_moves(board, m, n, m + 1, n - 1)) {
+        if (check_player_moves(board, m, n, m + 1, n - 1))
           available_moves.push_back({m, n, m + 1, n - 1});
-        }
-        if (check_player_jumps(board, m, n, m + 1, n - 1, m + 2, n - 2)) {
-          available_moves.push_back({m, n, m + 2, n - 2});
-        }
-        if (check_player_moves(board, m, n, m + 1, n + 1)) {
+        if (check_player_jumps(board, m, n, m + 1, n - 1, m + 2, n - 2))
+          available_jumps.push_back({m, n, m + 2, n - 2});
+        if (check_player_moves(board, m, n, m + 1, n + 1))
           available_moves.push_back({m, n, m + 1, n + 1});
-        }
-        if (check_player_jumps(board, m, n, m + 1, n + 1, m + 2, n + 2)) {
-          available_moves.push_back({m, n, m + 2, n + 2});
-        }
+        if (check_player_jumps(board, m, n, m + 1, n + 1, m + 2, n + 2))
+          available_jumps.push_back({m, n, m + 2, n + 2});
       }
     }
   }
@@ -635,7 +623,7 @@ class Checkers {
     std::map<double, Node> dict;
     for (int i = 0; i < first_computer_moves.size(); i++) {
       Node child = first_computer_moves.at(i);
-      double value = minimax(child.get_board(), 4, -INFINITY, INFINITY, false,
+      double value = minimax(child.get_board(), 4, -INT_MAX, INT_MAX, false,
                              mandatory_jumping);
       dict.insert(std::pair<double, Node>(value, child));
     }
