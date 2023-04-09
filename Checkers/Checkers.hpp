@@ -59,7 +59,8 @@ bool check_player_moves(Table board, int old_i, int old_j, int new_i,
   if (board.at(new_i).at(new_j) != "---") {
     return false;
   }
-  if (board.at(old_i).at(old_j).at(0) == 'c' || board.at(old_i).at(old_j).at(0) == 'C') {
+  if (board.at(old_i).at(old_j).at(0) == 'c' ||
+      board.at(old_i).at(old_j).at(0) == 'C') {
     return false;
   }
   if (board.at(new_i).at(new_j) == "---") {
@@ -78,7 +79,8 @@ bool check_player_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
   if (board.at(via_i).at(via_j) == "---") {
     return false;
   }
-  if (board.at(via_i).at(via_j).at(0) == 'B' || board.at(via_i).at(via_j).at(0) == 'b') {
+  if (board.at(via_i).at(via_j).at(0) == 'B' ||
+      board.at(via_i).at(via_j).at(0) == 'b') {
     return false;
   }
   if (board.at(new_i).at(new_j) != "---") {
@@ -87,7 +89,8 @@ bool check_player_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
   if (board.at(old_i).at(old_j) == "---") {
     return false;
   }
-  if (board.at(old_i).at(old_j).at(0) == 'c' || board.at(old_i).at(old_j).at(0) == 'C') {
+  if (board.at(old_i).at(old_j).at(0) == 'c' ||
+      board.at(old_i).at(old_j).at(0) == 'C') {
     return false;
   }
   return true;
@@ -132,7 +135,8 @@ bool check_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
   if (board.at(via_i).at(via_j) == "---") {
     return false;
   }
-  if (board.at(via_i).at(via_j).at(0) == 'C' || board.at(via_i).at(via_j).at(0) == 'c') {
+  if (board.at(via_i).at(via_j).at(0) == 'C' ||
+      board.at(via_i).at(via_j).at(0) == 'c') {
     return false;
   }
   if (board.at(new_i).at(new_j) != "---") {
@@ -141,7 +145,8 @@ bool check_jumps(Table board, int old_i, int old_j, int via_i, int via_j,
   if (board.at(old_i).at(old_j) == "---") {
     return false;
   }
-  if (board.at(old_i).at(old_j).at(0) == 'b' || board.at(old_i).at(old_j).at(0) == 'B') {
+  if (board.at(old_i).at(old_j).at(0) == 'b' ||
+      board.at(old_i).at(old_j).at(0) == 'B') {
     return false;
   }
   return true;
@@ -160,7 +165,8 @@ bool check_moves(Table board, int old_i, int old_j, int new_i, int new_j) {
   if (board.at(new_i).at(new_j) != "---") {
     return false;
   }
-  if (board.at(old_i).at(old_j).at(0) == 'b' || board.at(old_i).at(old_j).at(0) == 'B') {
+  if (board.at(old_i).at(old_j).at(0) == 'b' ||
+      board.at(old_i).at(old_j).at(0) == 'B') {
     return false;
   }
   if (board.at(new_i).at(new_j) == "---") {
@@ -252,39 +258,48 @@ int calculate_heuristics(Table board) {
         if (i + 1 > 7 || j - 1 < 0 || i - 1 < 0 || j + 1 > 7) {
           continue;
         }
-        if ((board.at(i + 1).at(j - 1).at(0) == 'b' || board.at(i + 1).at(j - 1).at(0) == 'B') &&
+        if ((board.at(i + 1).at(j - 1).at(0) == 'b' ||
+             board.at(i + 1).at(j - 1).at(0) == 'B') &&
             board.at(i - 1).at(j + 1) == "---") {
           result -= 3;
         }
-        if ((board.at(i + 1).at(j + 1).at(0) == 'b' || board.at(i + 1).at(j + 1).at(0) == 'B') &&
+        if ((board.at(i + 1).at(j + 1).at(0) == 'b' ||
+             board.at(i + 1).at(j + 1).at(0) == 'B') &&
             board.at(i - 1).at(j - 1) == "---") {
           result -= 3;
         }
-        if (board.at(i - 1).at(j - 1).at(0) == 'B' && board.at(i + 1).at(j + 1) == "---") {
+        if (board.at(i - 1).at(j - 1).at(0) == 'B' &&
+            board.at(i + 1).at(j + 1) == "---") {
           result -= 3;
         }
-        if (board.at(i - 1).at(j + 1).at(0) == 'B' && board.at(i + 1).at(j - 1) == "---") {
+
+        if (board.at(i - 1).at(j + 1).at(0) == 'B' &&
+            board.at(i + 1).at(j - 1) == "---") {
           result -= 3;
         }
         if (i + 2 > 7 || i - 2 < 0) {
           continue;
         }
-        if ((board.at(i + 1).at(j - 1).at(0) == 'B' || board.at(i + 1).at(j - 1).at(0) == 'b') &&
-            board[i + 2][j + 2] == "---") {
+        if ((board.at(i + 1).at(j - 1).at(0) == 'B' ||
+             board.at(i + 1).at(j - 1).at(0) == 'b') &&
+            board.at(i + 2).at(j - 2) == "---") {
           result += 6;
         }
         if (i + 2 > 7 || j + 2 > 7) {
           continue;
         }
-        if ((board.at(i + 1).at(j + 1).at(0) == 'B' || board.at(i + 1).at(j + 1).at(0) == 'b') &&
-            board[i + 2][j + 2] == "---") {
+        if ((board.at(i + 1).at(j + 1).at(0) == 'B' ||
+             board.at(i + 1).at(j + 1).at(0) == 'b') &&
+            board.at(i + 2).at(j + 2) == "---") {
           result += 6;
         }
-      } else if (board.at(i).at(j).at(0) == 'b' || board.at(i).at(j).at(0) == 'B') {
+      } else if (board.at(i).at(j).at(0) == 'b' ||
+                 board.at(i).at(j).at(0) == 'B') {
         opp += 1;
       }
     }
   }
+
   return result + (mine - opp) * 1000;
 }
 
@@ -382,12 +397,12 @@ class Node {
     int queen_row;
     if (minimizing_player == true) {
       available_moves = find_available_moves(current_state, mandatory_jumping);
-      big_letter = "C";
+      big_letter = 'C';
       queen_row = 7;
     } else {
       available_moves =
           find_player_available_moves(current_state, mandatory_jumping);
-      big_letter = "B";
+      big_letter = 'B';
       queen_row = 0;
     }
     for (int i = 0; i < available_moves.size(); i++) {
@@ -396,7 +411,8 @@ class Node {
       int new_i = available_moves.at(i).at(2);
       int new_j = available_moves.at(i).at(3);
       Table state(current_state);
-      make_a_move(&state, old_i, old_j, new_i, new_j, big_letter.at(0), queen_row);
+      make_a_move(&state, old_i, old_j, new_i, new_j, big_letter.at(0),
+                  queen_row);
       vector<int> new_move = {old_i, old_j, new_i, new_j};
       Node child(state, new_move, this);
       children_states.push_back(child);
@@ -476,7 +492,7 @@ class Checkers {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 8; j++) {
         if ((i + j) % 2 == 1) {
-          matrix.at(i).at(j) = ("c" + std::to_string(i) + std::to_string(j));
+          matrix.at(i).at(j) = ('c' + std::to_string(i) + std::to_string(j));
         }
       }
     }
@@ -485,7 +501,7 @@ class Checkers {
     for (int i = 5; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         if ((i + j) % 2 == 1) {
-          matrix.at(i).at(j) = ("b" + std::to_string(i) + std::to_string(j));
+          matrix.at(i).at(j) = ('b' + std::to_string(i) + std::to_string(j));
         }
       }
     }
@@ -583,9 +599,11 @@ class Checkers {
       make_a_move(&matrix, old_i, old_j, new_i, new_j, 'B', 0);
       for (int m = 0; m < 8; m++) {
         for (int n = 0; n < 8; n++) {
-          if (matrix.at(m).at(n).at(0) == 'c' || matrix.at(m).at(n).at(0) == 'C') {
+          if (matrix.at(m).at(n).at(0) == 'c' ||
+              matrix.at(m).at(n).at(0) == 'C') {
             computer_pieces++;
-          } else if (matrix.at(m).at(n).at(0) == 'b' || matrix.at(m).at(n).at(0) == 'B') {
+          } else if (matrix.at(m).at(n).at(0) == 'b' ||
+                     matrix.at(m).at(n).at(0) == 'B') {
             player_pieces++;
           }
         }
@@ -619,7 +637,7 @@ class Checkers {
       Node child = first_computer_moves.at(i);
       double value = minimax(child.get_board(), 4, -INFINITY, INFINITY, false,
                              mandatory_jumping);
-      dict[value] = child;
+      dict.insert(std::pair<double, Node>(value, child));
     }
     if (dict.empty()) {
       cout << ansi_green + "Computer has cornered itself.\nYOU WIN!" +
@@ -631,8 +649,8 @@ class Checkers {
     matrix = new_board;
     double t2 = time(NULL);
     double diff = difftime(t2, t1);
-    cout << "Computer has moved (" << move.at(0) << "," << move.at(1) << ") to ("
-         << move.at(2) << "," << move.at(3) << ").\n";
+    cout << "Computer has moved (" << move.at(0) << "," << move.at(1)
+         << ") to (" << move.at(2) << "," << move.at(3) << ").\n";
     cout << "It took him " << diff << " seconds.\n";
   }
 
